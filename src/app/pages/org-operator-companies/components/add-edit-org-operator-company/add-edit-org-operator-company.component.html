@@ -1,0 +1,100 @@
+<p-tabs value="organizationTab.Organization">
+    <p-tablist>
+        <p-tab value="organizationTab.Organization">{{ 'البيانات الأساسية' }}</p-tab>
+        @if (pageType === 'edit' || showOrganizationTabs) {
+            <p-tab value="organizationTab.OrganizationStaff">{{ 'المسئولين بالشركات المالكة' }}</p-tab>
+        }
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel value="organizationTab.Organization">
+            <div class="page-wrapper">
+                <p-card class="px-4 pt-2 pb-4 m-0">
+                    @if (form) {
+                        <form method="post" class="row" [formGroup]="form">
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="code" validatorLanguageType="en" [label]="'الكود'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="nameEn" validatorLanguageType="en" [label]="'الاسم بالإنجليزية'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'الاسم بالعربية'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" contentType="number" controlName="commercialRegistrationNumber" [label]="'السجل التجارى'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" contentType="number" controlName="touristMarinaNumber" [label]="'عدد المراسي داخل المحافظة'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="address" validatorLanguageType="ar" [label]="'العنوان'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label class="m-2">{{ 'الجنسية' }}</label>
+                                <app-prime-autocomplete
+                                    [field]="'nameAr'"
+                                    [selectedOption]="selectedNationality"
+                                    [suggestions]="filteredNationalities"
+                                    [formGroup]="form"
+                                    (onSelect)="onNationalitySelect($event)"
+                                    [lazy]="false"
+                                    (handleMethod)="getNationalities($event)"
+                                ></app-prime-autocomplete>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label class="mb-2">{{ 'تطبق على' }}</label>
+                                <app-prime-autocomplete
+                                    [field]="'nameAr'"
+                                    [selectedOption]="selectedAppliedOn"
+                                    [suggestions]="filteredAppliedOns"
+                                    [formGroup]="form"
+                                    (onSelect)="onAppliedOnSelect($event)"
+                                    [lazy]="false"
+                                    (handleMethod)="getAppliedOns($event)"
+                                ></app-prime-autocomplete>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-datepicker [formGroup]="form" controlName="creationDate" [timeOnly]="false" [label]="'تاريخ الانشاء'"> </app-prime-datepicker>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="webSiteAddress" [label]="'الموقع الالكترونى'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <app-prime-input-text [formGroup]="form" controlName="phone" [label]="'رقم الهاتف'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <app-prime-input-text [formGroup]="form" controlName="mobile" [label]="'رقم المحمول'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <app-prime-input-text [formGroup]="form" controlName="fax" [label]="'فاكس'"> </app-prime-input-text>
+                            </div>
+
+                             <div class="col-lg-3">
+                                <app-prime-input-text [formGroup]="form" controlName="email" [label]="'البريد الالكترونى'"> </app-prime-input-text>
+                            </div>
+
+                        </form>
+                    }
+                </p-card>
+                @if (form) {
+                    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="redirect()"> </app-submit-buttons>
+                }
+            </div>
+        </p-tabpanel>
+        <p-tabpanel value="organizationTab.OrganizationStaff">
+            <app-organization-staff [organizationId]="organizationId"></app-organization-staff>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>

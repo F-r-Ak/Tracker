@@ -1,0 +1,24 @@
+<div [formGroup]="formGroup">
+    <p-autoComplete
+        [(ngModel)]="selectedOption"
+        [ngModelOptions]="{ standalone: true }"
+        [field]="getBindLabel"
+        placeholder="اختر"
+        [suggestions]="suggestions"
+        [dropdown]="dropdown"
+        [forceSelection]="forceSelection"
+        (completeMethod)="handleCompleteMethod($event)"
+        (onSelect)="handleSelect($event)"
+        (onClear)="handleClear()"
+        [showClear]="showClear"
+        [virtualScroll]="virtualScroll"
+        virtualScrollItemSize="38"
+        [scrollHeight]="'150px'"
+        [lazy]="lazy"
+        [disabled]="disabled"
+        (onLazyLoad)="onLazyLoad($event)"
+        [multiple]="multiple"
+        appendTo="body"
+    >
+    </p-autoComplete>
+</div>

@@ -1,0 +1,31 @@
+<div class="page-wrapper d-flex flex-column h-100">
+    <app-prime-title-toolbar [pageTitle]="pageTitle"></app-prime-title-toolbar>
+    <div class="dataBox" style="margin-top: -3.5rem;">
+        @if (data) {
+        <a class="addLink">
+            @if (totalCount == 0) {
+
+            <button class="main-btn align-self-center font-14 main border-radius-2 py-1 px-2 mt-2 mt-sm-0" type="button"
+                (click)="openAdd()" pButton pRipple>
+                <div class="d-flex align-items-center">
+                    <i class="bx bx-plus m-inline-end-1 font-18"></i>
+                    <span class="p-inline-end-1">{{ 'اضافة' }}</span>
+                    <!-- <label for="">totalCount : {{totalCount}}</label> -->
+                </div>
+            </button>
+            }
+
+        </a>
+        }
+        @if (tableOptions && totalCount == 0) {
+        <div class="mt-5">
+            <app-prime-data-table (event)="handleEvent($event)" [tableOptions]="tableOptions" [data]="data"
+                [totalCount]="totalCount" [pageSize]="dataTableService.opt.pageSize"> </app-prime-data-table>
+        </div>
+        }
+    </div>
+</div>
+
+@if (totalCount > 0){
+    <app-governate-geo-points class="m-2"></app-governate-geo-points>
+}

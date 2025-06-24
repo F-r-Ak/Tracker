@@ -1,0 +1,37 @@
+<!-- <app-floating-configurator /> -->
+<div class="bg-surface-50 flex items-center justify-center min-h-screen min-w-[50vw] overflow-hidden galaxy">
+    <div class="d-flex w-50 loginCover" style="background-color: var(--secondary-color)">
+        <img src="assets/img/login.png" alt="Logo" class="w-1/2" />
+        <div dir="rtl" class="p-3 d-flex flex-column align-items-center justify-content-center w-1/2">
+            <h1 class="animated-title" style="color: var(--light-color) !important; font-size: 3.2rem; font-weight: 800; line-height: 1.2; margin-top: -50px; margin-bottom: 20px; text-align: center">
+                <span>S</span><span>o</span><span>n</span><span>o</span>
+                <span>&nbsp;</span>
+                <span>T</span><span>r</span><span>a</span><span>c</span><span>k</span><span>e</span><span>r</span>
+            </h1>
+            <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">البريد الالكترونى</label>
+            <div class="col-lg-10">
+                <app-prime-input-text [formGroup]="loginForm" contentType="email" controlName="Email"> </app-prime-input-text>
+            </div>
+            <label for="Password" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">الرقم السرى</label>
+            <div class="col-lg-10">
+                <app-prime-input-text [formGroup]="loginForm" contentType="password" controlName="Password"> </app-prime-input-text>
+            </div>
+            <div class="auth-bg">
+                <span class="r">
+                    <img class="viewAr" src="/assets/img/viewAr.png" alt="" />
+                </span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r">
+                    <img class="viewEn" src="/assets/img/viewEn.png" alt="" />
+                </span>
+            </div>
+            <button class="main-btn align-self-center font-14 main border-radius-2 mt-4  " type="button" pRipple (click)="login()">
+                <div class="d-flex align-items-center py-3">
+                    <i class="bx bx-plus m-inline-end-1 font-18"></i>
+                    <span class="p-inline-end-1">تسجيل دخول</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>

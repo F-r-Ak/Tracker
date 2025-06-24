@@ -1,0 +1,50 @@
+<div class="page-wrapper">
+  <div class="mb-3">
+    <h1 class="m-0 font-24 regular text-primary">{{ pageTitle }}</h1>
+  </div>
+
+  <!-- <p-card class="px-4 pt-2 pb-4 m-0"> -->
+    @if (form) {
+    <form method="post" class="row" [formGroup]="form">
+      <div class="col-lg-6">
+        <app-prime-input-text
+          [formGroup]="form"
+          controlName="code"
+          [label]="'الكود'">
+        </app-prime-input-text>
+      </div>
+
+      <div class="col-lg-6"></div>
+
+      <div class="col-lg-6">
+        <app-prime-input-text
+          [formGroup]="form"
+          controlName="nameEn"
+          validatorLanguageType="en"
+          [label]="'الاسم بالانجليزية'">
+        </app-prime-input-text>
+      </div>
+
+      <div class="col-lg-6">
+        <app-prime-input-text
+          [formGroup]="form"
+          controlName="nameAr"
+          validatorLanguageType="ar"
+          [label]="'الاسم بالعربية'">
+        </app-prime-input-text>
+      </div>
+    </form>
+    }
+  <!-- </p-card> -->
+  @if (form) {
+  <app-submit-buttons
+    [isSubmitDisabled]="form.invalid"
+    [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'"
+    (submit)="submit()"
+    (cancel)="redirect()">
+  </app-submit-buttons>
+  }
+</div>
+
+
+

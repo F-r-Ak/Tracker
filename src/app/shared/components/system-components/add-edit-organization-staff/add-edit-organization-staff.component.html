@@ -1,0 +1,73 @@
+<div class="page-wrapper">
+    <p-card class="px-4 pt-2 pb-4 m-0">
+        @if (form) {
+            <form method="post" class="row" [formGroup]="form">
+                <div class="col-lg-4">
+                    <app-prime-input-text [formGroup]="form" controlName="name" [label]="'الاسم'"> </app-prime-input-text>
+                </div>
+
+                <div class="col-lg-4">
+                    <app-prime-input-text [formGroup]="form" controlName="job" [label]="'الوظيفة'"> </app-prime-input-text>
+                </div>
+
+                <div class="col-lg-4">
+                    <label class="mb-2">{{ 'النوع' }}</label>
+                    <app-prime-autocomplete
+                        [field]="'nameAr'"
+                        [selectedOption]="selectedGender"
+                        [suggestions]="filteredGenders"
+                        [formGroup]="form"
+                        (onSelect)="onGenderSelect($event)"
+                        [lazy]="false"
+                        (handleMethod)="getGenders($event)"
+                    ></app-prime-autocomplete>
+                </div>
+
+                <div class="col-lg-4">
+                    <app-prime-input-text [formGroup]="form" controlName="phone" [label]="'رقم الهاتف'"> </app-prime-input-text>
+                </div>
+
+                <div class="col-lg-4">
+                    <app-prime-input-text [formGroup]="form" controlName="mobile" [label]="'رقم المحمول'"> </app-prime-input-text>
+                </div>
+
+                <div class="col-lg-4">
+                    <app-prime-input-text [formGroup]="form" controlName="email" [label]="'البريد الالكتروني'"> </app-prime-input-text>
+                </div>
+
+                <div class="col-lg-4">
+                    <label class="mb-2">{{ 'نوع الهوية' }}</label>
+                    <app-prime-autocomplete
+                        [field]="'nameAr'"
+                        [selectedOption]="selectedIdType"
+                        [suggestions]="filteredIdTypes"
+                        [formGroup]="form"
+                        (onSelect)="onIdTypeSelect($event)"
+                        [lazy]="false"
+                        (handleMethod)="getIdTypes($event)"
+                    ></app-prime-autocomplete>
+                </div>
+
+                <div class="col-lg-4">
+                    <app-prime-input-text [formGroup]="form" controlName="identity" [label]="'الهوية'"> </app-prime-input-text>
+                </div>
+
+                <div class="col-lg-4">
+                    <label class="mb-2">{{ 'الجنسية' }}</label>
+                    <app-prime-autocomplete
+                        [field]="'nameAr'"
+                        [selectedOption]="selectedNationality"
+                        [suggestions]="filteredNationalities"
+                        [formGroup]="form"
+                        (onSelect)="onNationalitySelect($event)"
+                        [getMethod]="getNationalities.bind(this)"
+                        (handleMethod)="getNationalities($event)"
+                    ></app-prime-autocomplete>
+                </div>
+            </form>
+        }
+    </p-card>
+    @if (form) {
+        <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
+    }
+</div>

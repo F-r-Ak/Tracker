@@ -1,0 +1,34 @@
+<div class="page-wrapper">
+    <div class="mb-3">
+        <h1 class="m-0 font-24 regular text-primary">{{ pageTitle }}</h1>
+    </div>
+
+    @if (form) {
+    <form method="post" class="row" [formGroup]="form">
+        <div class="col-lg-6">
+            <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
+        </div>
+
+        <div class="col-lg-6">
+            <app-prime-input-text [formGroup]="form" controlName="name" [label]="'المحافظة'">
+            </app-prime-input-text>
+        </div>
+
+        <div class="col-lg-6">
+            <app-prime-input-text [formGroup]="form" controlName="url"
+                [label]="'الموقع الالكترونى'"> </app-prime-input-text>
+        </div>
+
+        <div class="col-lg-6">
+            <app-prime-input-text [formGroup]="form" controlName="address"
+                inputType="textarea" [label]="'العنوان'"> </app-prime-input-text>
+        </div>
+
+    </form>
+    }
+    @if (form) {
+    <app-submit-buttons [isSubmitDisabled]="form.invalid"
+        [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()"
+        (cancel)="redirect()"> </app-submit-buttons>
+    }
+</div>

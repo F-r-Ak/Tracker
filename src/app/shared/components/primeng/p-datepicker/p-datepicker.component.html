@@ -1,0 +1,25 @@
+@if(formGroup) {
+  <label for="inputId" class="m-2">{{ label }}</label>
+  <div [formGroup]="formGroup" class="'mb-3'">
+    <p-datePicker
+      [ngClass]="timeOnly ? '' : 'datePickerWithoutTime'"
+      [timeOnly]="timeOnly"
+      dateFormat="dd/mm/yy"
+      [showIcon]="true"
+      [showTime]="showTime"
+      [formControlName]="controlName"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      [showButtonBar]="true"
+      [readonlyInput]="true"
+      [hourFormat]="'12'"
+      [id]="controlName + '_input'"
+      dateRangeValidator
+      [placeholder]="placeHolderValue ? placeHolderValue : 'اختر'"
+      appendTo="body"></p-datePicker>
+  </div>
+  @if (formGroup.get(controlName)?.errors) {
+  <small>
+    <span class="font-12 text-danger">{{ formGroup.get(controlName)?.errors | validationHandler }}</span>
+  </small>
+  } }

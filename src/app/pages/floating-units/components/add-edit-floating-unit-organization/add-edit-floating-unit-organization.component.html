@@ -1,0 +1,24 @@
+<div class="page-wrapper">
+    <p-card class="px-4 pt-2 pb-4 m-0">
+        @if (form) {
+            <form method="post" class="row" [formGroup]="form">
+                <div class="col-lg-6">
+                    <label class="mb-2">{{ 'الشركة المشغلة/المالكة' }}</label>
+                    <app-prime-autocomplete
+                        [field]="'nameAr'"
+                        [selectedOption]="selectedOrganization"
+                        [suggestions]="filteredOrganizations"
+                        [formGroup]="form"
+                        (onSelect)="onOrganizationSelect($event)"
+                        [getMethod]="getOrganizations.bind(this)"
+                        (handleMethod)="getOrganizations($event)"
+                    ></app-prime-autocomplete>
+                </div>
+                <div class="col-lg-6"></div>
+            </form>
+        }
+    </p-card>
+    @if (form) {
+        <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="closeDialog()"> </app-submit-buttons>
+    }
+</div>

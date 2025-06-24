@@ -1,0 +1,71 @@
+<p-tabs value="organizationTab.Organization">
+    <p-tablist>
+        <p-tab value="organizationTab.Organization">{{ 'البيانات الأساسية' }}</p-tab>
+        @if (pageType === 'edit' || showOrganizationTabs) {
+            <p-tab value="organizationTab.OrganizationStaff">{{ 'بيانات المسئولين' }}</p-tab>
+        }
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel value="organizationTab.Organization">
+            <div class="page-wrapper">
+                <p-card class="px-4 pt-2 pb-4 m-0">
+                    @if (form) {
+                        <form method="post" class="row" [formGroup]="form">
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="code" [label]="'الكود'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="nameEn" validatorLanguageType="en" [label]="'اسم الجهة بالإنجليزية'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'اسم الجهة بالعربية'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="address" [label]="'العنوان'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label class="mb-2">{{ 'نوع التفتيش' }}</label>
+                                <app-prime-autocomplete
+                                    [field]="'nameAr'"
+                                    [selectedOption]="selectedInspectionType"
+                                    [suggestions]="filteredInspectionTypes"
+                                    [formGroup]="form"
+                                    (onSelect)="onInspectionTypeSelect($event)"
+                                    [lazy]="false"
+                                    (handleMethod)="getInspectionTypes($event)"
+                                ></app-prime-autocomplete>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="email" [label]="'البريد الالكترونى'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="phone" [label]="'الهاتف'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="fax" [label]="'الفاكس'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="mobile" [label]="'المحمول'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-12">
+                                <app-prime-check-box [formGroup]="form" controlName="isAccepted" groupName="showGroup" [binary]="true" [label]="'تلتزم الشركة بكافة الاشتراطات البيئية، واشتراطات السلامة وفقا للقوانين والقواعد السارية ذات الصلة'">
+                                </app-prime-check-box>
+                            </div>
+                        </form>
+                    }
+                </p-card>
+                @if (form) {
+                    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="redirect()"> </app-submit-buttons>
+                }
+            </div>
+        </p-tabpanel>
+        <p-tabpanel value="organizationTab.OrganizationStaff">
+            <app-organization-staff [organizationId]="organizationId"></app-organization-staff>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>

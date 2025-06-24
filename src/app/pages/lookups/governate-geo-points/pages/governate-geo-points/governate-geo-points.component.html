@@ -1,0 +1,105 @@
+<div class="card">
+    <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+        <ng-template #marker let-event>
+            <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm"
+                [style]="{ 'background-color': event.color }">
+                <i [class]="event.icon"></i>
+            </span>
+        </ng-template>
+
+        <ng-template #content let-event style="align-items: center;">
+            <p-card [header]="event.mainTitle">
+
+
+                <h6>{{event.subTitle}}</h6>
+
+                <div class="d-flex flex-column">
+
+                    @if(event.code){
+                    <div class="d-flex mt-2">
+                    <i class="pi pi-qrcode ml-4" style="color: var(--light-color)"></i> 
+                    الكود : 
+                    <p class="mr-2">{{event.code}} </p>
+                    </div>
+                    }
+
+                    @if(event.address){
+                    <div class="d-flex mt-2">
+                    <i class="pi pi-map-marker ml-4" style="color: var(--light-color)"></i> 
+                    العنوان : 
+                    <p class="mr-2">{{event.address}} </p>
+                    </div>
+                    }
+
+                    @if(event.url){
+                    <div class="d-flex mt-2">
+                          <i class="pi pi-link ml-4" style="color: var(--light-color)"></i> 
+                            الموقع الالكترونى : 
+                            <a href="{{event.url}}" target="_blank" class="mr-2 text-blue-500 hover:underline">
+                                {{event.url}}
+                            </a>  
+                    </div>
+                    }
+
+                    
+                </div>
+
+                @if (event.image) {
+                <div style="display: flex; justify-content:left;">
+                    <img [src]="'assets/img/' + event.image" width="100" [alt]="event.name" />
+                </div>
+                }
+                
+
+                @if(event.coords){
+                    <div class="d-flex mt-4 mr-5">
+                        <p class="mr-8">شرقيات </p>
+                        <p class="mr-10">شماليات </p>
+                    </div>
+                    
+                    
+                    @for (item of polygonPointsAswanGov; track $index;) {
+                        @if ($index < 10) {
+                            <div class="d-flex mt-2 mr-5">
+                                <i class="pi pi-map-marker ml-2" style="color: var(--light-color)"></i><p>{{ item.lat }}</p>
+                                <p class="mr-5">{{ item.lng }}</p>
+                            </div>
+                        }
+                    }
+                }
+
+
+                @if(event.map) {
+                <google-map [center]="center" [zoom]="zoom" width="100%" height="550">
+                    <!-- <map-marker [position]="currentLocation"></map-marker> -->
+                     <map-marker
+                        [position]="currentLocation"
+                        [icon]="{
+                         url: 'assets/img/pinAnimated.gif',
+                         scaledSize: scaledSize 
+                    }" >
+                    </map-marker>
+                     <!-- <map-marker
+                        [position]="currentLocation"
+                        [icon]="{
+                         url: 'assets/img/flagAnimated.gif',
+                         scaledSize: scaledSize 
+                    }" >
+                    </map-marker> -->
+                    <map-polygon [paths]="polygonPointsAswanGov" [options]="polygonPointsAswanGovOptions"></map-polygon>
+                </google-map>
+                }
+
+                @if(event.action) {
+                <button (click)="openEdit()">
+                    <a class="icon-btn">
+                        <i style="font-size: 30px;" class="pi pi-file-edit icon" [title]="'ACTIONS.' + 'edit' "></i>
+                    </a>
+                </button>
+                }
+
+            </p-card>
+        </ng-template>
+
+    </p-timeline>
+</div>

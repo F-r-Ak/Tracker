@@ -1,0 +1,94 @@
+<p-tabs value="floatingUnitEnum.General">
+    <p-tablist>
+        <p-tab value="floatingUnitEnum.General">{{ 'البيانات الأساسية' }}</p-tab>
+        @if (pageType === 'edit' || showFloatingUnitTabs) {
+            <p-tab value="floatingUnitEnum.FloatingUnitStaff">{{ 'طاقم العمل بالوحدة العائمة' }}</p-tab>
+            <p-tab value="floatingUnitEnum.FloatingUnitOrganization">{{ 'شركات الوحدة العائمة' }}</p-tab>
+        }
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel value="floatingUnitEnum.General">
+            <div class="page-wrapper">
+                <p-card class="px-4 pt-2 pb-4 m-0">
+                    @if (form) {
+                        <form method="post" class="row" [formGroup]="form">
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="code" [label]="'كود الوحدة'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="nameEn" validatorLanguageType="en" [label]="'الاسم بالإنجليزية'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="nameAr" validatorLanguageType="ar" [label]="'الاسم بالعربية'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="licenseNumber" [label]="'رقم الترخيص'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="mb-2">{{ 'الفئة' }}</label>
+                                <app-prime-autocomplete
+                                    [field]="'nameAr'"
+                                    [selectedOption]="selectedUnitCategory"
+                                    [suggestions]="filteredUnitCategories"
+                                    [formGroup]="form"
+                                    (onSelect)="onUnitCategorySelect($event)"
+                                    [lazy]="false"
+                                    (handleMethod)="getUnitCategories($event)"
+                                ></app-prime-autocomplete>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label class="mb-2">{{ 'النوع' }}</label>
+                                <app-prime-autocomplete
+                                    [field]="'nameAr'"
+                                    [selectedOption]="selectedUnitType"
+                                    [suggestions]="filteredUnitTypes"
+                                    [formGroup]="form"
+                                    (onSelect)="onUnitTypeSelect($event)"
+                                    [lazy]="false"
+                                    (handleMethod)="getUnitTypes($event)"
+                                ></app-prime-autocomplete>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <app-prime-input-text [formGroup]="form" contentType="number" controlName="length" [label]="'طول الوحدة'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-3">
+                                <app-prime-input-text [formGroup]="form" contentType="number" controlName="width" [label]="'عرض الوحدة'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-3">
+                                <app-prime-input-text [formGroup]="form" contentType="number" controlName="passengerNumber" [label]="'عدد الركاب'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-3">
+                                <app-prime-input-text [formGroup]="form" contentType="number" controlName="roomNumber" [label]="'عدد الغرف'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="manufactureYear" [label]="'سنة الصنع'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-datepicker [formGroup]="form" controlName="lastMaintenanceDate" [timeOnly]="false" [label]="'تاريخ اخر صيانة'"> </app-prime-datepicker>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-datepicker [formGroup]="form" controlName="nextMaintenanceDate" [timeOnly]="false" [label]="'تاريخ الصيانة القادمة'"> </app-prime-datepicker>
+                            </div>
+                        </form>
+                    }
+                </p-card>
+                @if (form) {
+                    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="redirect()"> </app-submit-buttons>
+                }
+            </div>
+        </p-tabpanel>
+        <p-tabpanel value="floatingUnitEnum.FloatingUnitStaff">
+            <app-floating-unit-staff [floatingUnitId]="floatingUnitId"></app-floating-unit-staff>
+        </p-tabpanel>
+        <p-tabpanel value="floatingUnitEnum.FloatingUnitOrganization">
+            <app-floating-unit-organizations [floatingUnitId]="floatingUnitId"></app-floating-unit-organizations>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>

@@ -1,0 +1,68 @@
+<p-tabs value="tripTabsEnum.General">
+    <p-tablist>
+        <p-tab value="tripTabsEnum.General">{{ 'البيانات الأساسية' }}</p-tab>
+        @if (pageType === 'edit' || showFloatingUnitTabs) {
+            <p-tab value="tripTabsEnum.MarinTripTab">{{ 'مراسي الرحلة' }}</p-tab>
+            <p-tab value="tripTabsEnum.TripGeoTab">{{ 'تتبع الرحلة' }}</p-tab>
+        }
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel value="tripTabsEnum.General">
+            <div class="page-wrapper">
+                <p-card class="px-4 pt-2 pb-4 m-0">
+                    @if (form) {
+                        <form method="post" class="row" [formGroup]="form">
+                            <div class="col-lg-4">
+                                <label class="mb-2">{{ 'اسم الوحدة' }}</label>
+                                <app-prime-autocomplete
+                                    [field]="'nameAr'"
+                                    [selectedOption]="selectedUnit"
+                                    [suggestions]="filteredUnits"
+                                    [formGroup]="form"
+                                    (onSelect)="onUnitSelect($event)"
+                                    [lazy]="false"
+                                    (handleMethod)="getUnits($event)"
+                                ></app-prime-autocomplete>
+                            </div>
+                              <div class="col-lg-4">
+                                <app-prime-datepicker [formGroup]="form" controlName="sartDate" [timeOnly]="false" [label]="'تاريخ البداية'"> </app-prime-datepicker>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-datepicker [formGroup]="form" controlName="endDate" [timeOnly]="false" [label]="'تاريخ النهاية'"> </app-prime-datepicker>
+                            </div>
+                              <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="staffNumber" contentType="number"  [label]="'عدد الطاقم'"> </app-prime-input-text>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <app-prime-input-text [formGroup]="form" controlName="passengerNumber" contentType="number" [label]="'عدد الركاب'"> </app-prime-input-text>
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="mb-2">{{ 'خط السير' }}</label>
+                                <app-prime-autocomplete
+                                    [field]="'nameAr'"
+                                    [selectedOption]="selectedRoute"
+                                    [suggestions]="filteredRoutes"
+                                    [formGroup]="form"
+                                    (onSelect)="onRouteSelect($event)"
+                                    [lazy]="false"
+                                    (handleMethod)="getRoutes($event)"
+                                ></app-prime-autocomplete>
+                            </div>
+                        </form>
+                    }
+                </p-card>
+                @if (form) {
+                    <app-submit-buttons [isSubmitDisabled]="form.invalid" [submitButtonText]="pageType === 'add' ? 'ACTIONS.SUBMIT' : 'ACTIONS.SAVE'" (submit)="submit()" (cancel)="redirect()"> </app-submit-buttons>
+                }
+            </div>
+        </p-tabpanel>
+        <p-tabpanel value="tripTabsEnum.MarinTripTab">
+            <app-marina-trips [tripInformationId]="tripInformationId"></app-marina-trips>
+        </p-tabpanel>
+         <p-tabpanel value="tripTabsEnum.TripGeoTab">
+            <app-trip-geo [tripInformationId]="tripInformationId"></app-trip-geo>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>
